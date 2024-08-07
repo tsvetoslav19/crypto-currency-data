@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cryptocurrency Data Project</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #tvchart {
+            margin-top: 20px;
+            height: 600px;
+            width: 1500px;
+        }
+        .centered-buttons {
+            margin-top: 20px;
+        }
+        .centered-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .form-controls {
+            margin-top: 20px;
+        }
+        .form-controls label,
+        .form-controls select,
+        .form-controls input {
+            margin: 0 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<h2>Cryptocurrency Data</h2>
+<div class="centered-buttons">
+    <button onclick="window.location.href='/?view=chart'">View Chart</button>
+    <button onclick="window.location.href='/?view=data'">View Data</button>
+</div>
+
+<div th:if="${view == 'chart'}" class="container">
+    <h2>Cryptocurrency Chart</h2>
+    <div class="form-controls">
+        <label for="symbol">Select Cryptocurrency:</label>
+        <select id="symbol">
+            <option value="BTCUSDT">Bitcoin</option>
+            <option value="ETHUSDT">Ethereum</option>
+        </select>
+
+        <label for="interval">Select Timeframe:</label>
+        <select id="interval">
+            <option value="1m">1 Minute</option>
+            <option value="1d">1 Day</option>
+            <option value="1w">1 Week</option>
+            <option value="1M">1 Month</option>
+        </select>
+
+        <label for="smooth">Smooth Data:</label>
+        <input type="checkbox" id="smooth">
+    </div>
+
+    <div id="tvchart"></div>
+
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
+</div>
+
+<div th:if="${view == 'data'}" class="container">
+    <h2>Cryptocurrency Data</h2>
+    <table border="1" class="data-table">
+        <thead>
+        <tr>
+            <th>Currency</th>
+            <th>Price (USD)</th>
+            <th>Market Cap (USD)</th>
+            <th>Volume (24Hr USD)</th>
+            <th>Timestamp</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="data : ${cryptoCurrencyData}">
+            <td th:text="${data.currency}"></td>
+            <td th:text="${data.price}"></td>
+            <td th:text="${data.marketCap}"></td>
+            <td th:text="${data.volume}"></td>
+            <td th:text="${data.timestamp}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

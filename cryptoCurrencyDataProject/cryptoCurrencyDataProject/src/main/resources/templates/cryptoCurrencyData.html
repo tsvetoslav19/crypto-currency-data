@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto Data</title>
+    <meta http-equiv="refresh" content="3">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>Cryptocurrency Data Project</h1>
+<button onclick="window.location.href='/cryptoCurrencyData/sortByPrice'">Filter by Price</button>
+<table>
+    <thead>
+    <tr>
+        <th>Currency</th>
+        <th>Price (USD)</th>
+        <th>Market Cap (USD)</th>
+        <th>Volume (24Hr USD)</th>
+        <th>Timestamp</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="data : ${cryptoCurrencyData}">
+        <td th:text="${data.currency}"></td>
+        <td th:text="${data.price}"></td>
+        <td th:text="${data.marketCap}"></td>
+        <td th:text="${data.volume}"></td>
+        <td th:text="${data.timestamp}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
